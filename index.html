@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>
+        cheese pool
+    </title>
+    <script type="text/javascript">
+        function draw() {
+            var canvas = document.getElementById("canvas");
+            if (canvas.getContext) {
+                var ctx = canvas.getContext("2d");
+
+                ctx.fillStyle = "rgb(255, 212, 0)";
+                ctx.fillRect(0, 0, 1000, 1000);
+
+                ctx.fillStyle = "rgb(80, 56, 0)";
+                var radius, centerVertOffset, centerHorizOffset;
+                for (var i = 0; i < 10; i++) {
+                    for (var j = 0; j < 10; j++) {
+                        radius = Math.random() * 30;
+                        centerVertOffset = (50 - radius) * Math.random();
+                        centerHorizOffset = (50 - radius) * Math.random();
+                        if (Math.random() > 0.5) {
+                            centerVertOffset = centerVertOffset * -1;
+                        }
+                        if (Math.random() > 0.5) {
+                            centerHorizOffset = centerHorizOffset * -1;
+                        }
+                        ctx.beginPath();
+                        ctx.arc(i * 100 + centerVertOffset + 50, j * 100 + centerHorizOffset + 50, radius, 0, Math.PI * 2)
+                        ctx.fill();
+                    }
+                }
+                return canvas;
+            }
+        }
+
+        function convertCanvasToImage(canvas) {
+            var image = new Image();
+            image.src = canvas.toDataURL("image/png");
+            return image;
+        }
+
+        window.onload = function () {
+            var img = convertCanvasToImage(draw());
+            var src = document.getElementById("main");
+
+            var imgSection;
+            for (var i = 0; i < 100; i++) {
+                imgSection = document.createElement("div");
+                imgSection.classList = ['base-cheese-class']
+                imgSection.style = "background: url(" + img.src + ") no-repeat 0 " + (i * -10) + "px; animation-delay: " + (i * 0.05) + "s;";
+                src.appendChild(imgSection);
+            }
+
+
+        }
+    </script>
+    <style>
+        @keyframes cheese-motion {
+            from {
+                left: -50px;
+            }
+
+            to {
+                left: 0px;
+            }
+        }
+
+        .base-cheese-class {
+            border: none;
+            width: 1000px;
+            height: 10px;
+            position: relative;
+            left: -50px;
+            animation-name: cheese-motion;
+            animation-duration: 2s;
+            animation-timing-function: ease;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .cheese-pool-container {
+            background-color: grey;
+        }
+
+        .cheese-pool {
+            width: 50%;
+            height: 100%;
+            border: 1rem solid grey;
+            border-radius: 5%;
+            overflow: hidden;
+
+            margin: auto;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .cheese-pool {
+                width: 100%;
+                border: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="cheese-pool-container">
+    <canvas id="canvas" style="display: none;" width="1000" height="1000"></canvas>
+    <div id="main" class="cheese-pool">
+    </div>
+</body>
+
+</html>
