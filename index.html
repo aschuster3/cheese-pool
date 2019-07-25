@@ -11,12 +11,12 @@
                 var ctx = canvas.getContext("2d");
 
                 ctx.fillStyle = "rgb(255, 212, 0)";
-                ctx.fillRect(0, 0, 2000, 2000);
+                ctx.fillRect(0, 0, 2000, 1000);
 
                 ctx.fillStyle = "rgb(80, 56, 0)";
                 var radius, centerVertOffset, centerHorizOffset;
                 for (var i = 0; i < 20; i++) {
-                    for (var j = 0; j < 20; j++) {
+                    for (var j = 0; j < 10; j++) {
                         radius = Math.random() * 30;
                         centerVertOffset = (50 - radius) * Math.random();
                         centerHorizOffset = (50 - radius) * Math.random();
@@ -44,7 +44,6 @@
         window.onload = function () {
             var img = convertCanvasToImage(draw());
             var src = document.getElementById("main");
-
 
             var imgSection;
             for(var i = 0; i < 100; i++) {
@@ -85,7 +84,7 @@
 </head>
 
 <body class="cheese-pool-container">
-    <canvas id="canvas" style="display: none;" width="2000" height="2000"></canvas>
+    <canvas id="canvas" style="display: none;" width="2000" height="1000"></canvas>
     <div id="main">
     </div>
 </body>
